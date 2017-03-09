@@ -23,7 +23,7 @@ defmodule ExAdmin.Controller do
       end
 
       def set_layout(conn, _) do
-        layout = Application.get_env(:ex_admin, :layout) || "#{conn.assigns.theme.name}.html"
+        layout = Application.get_env(:ex_admin_runtime, :layout) || "#{conn.assigns.theme.name}.html"
         put_layout(conn, layout)
       end
     end

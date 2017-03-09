@@ -41,7 +41,7 @@ defmodule ExAdmin.Router do
       get "/dashboard", AdminController, :dashboard
       get "/page/:page", AdminController, :page
       get "/select_theme/:id", AdminController, :select_theme
-      if Application.get_env :ex_admin, :login_user do
+      if Application.get_env :ex_admin_runtime, :login_user do
         get "/switch_user/:id", AdminController, :switch_user
       end
       get "/:resource/", AdminResourceController, :index

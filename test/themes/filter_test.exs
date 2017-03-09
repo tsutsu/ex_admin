@@ -10,11 +10,11 @@ defmodule ExAdmin.ThemeFilterTest do
   end
 
   setup do
-    save = Application.get_env :ex_admin, :repo
-    Application.put_env :ex_admin, :repo, __MODULE__
+    save = Application.get_env :ex_admin_runtime, :repo
+    Application.put_env :ex_admin_runtime, :repo, __MODULE__
 
     on_exit fn ->
-      Application.put_env :ex_admin, :repo, save
+      Application.put_env :ex_admin_runtime, :repo, save
     end
     :ok
   end
@@ -53,22 +53,22 @@ defmodule ExAdmin.ThemeFilterTest do
     assert Floki.find(html, "label.label") |> Floki.text == "Index Number"
   end
   test "AdminLte2 build_field belongs_to" do
-    # save = Application.get_env :ex_admin, :repo
-    # Application.put_env :ex_admin, :repo, __MODULE__
+    # save = Application.get_env :ex_admin_runtime, :repo
+    # Application.put_env :ex_admin_runtime, :repo, __MODULE__
     defn = %TestExAdmin.ExAdmin.Product{index_filters: []}
     assoc = defn.resource_model.__schema__(:association, :user)
     html = AdminLte2.Filter.build_field({:user, assoc}, nil, defn)
     assert Floki.find(html, "label.label") |> Floki.text == "User"
-    # Application.put_env :ex_admin, :repo, save
+    # Application.put_env :ex_admin_runtime, :repo, save
   end
   test "AdminLte2 build_field belongs_to with label option" do
-    # save = Application.get_env :ex_admin, :repo
-    # Application.put_env :ex_admin, :repo, __MODULE__
+    # save = Application.get_env :ex_admin_runtime, :repo
+    # Application.put_env :ex_admin_runtime, :repo, __MODULE__
     defn = %TestExAdmin.ExAdmin.Product{index_filters: [[labels: [user: "Account"]]]}
     assoc = defn.resource_model.__schema__(:association, :user)
     html = AdminLte2.Filter.build_field({:user, assoc}, nil, defn)
     assert Floki.find(html, "label.label") |> Floki.text == "Account"
-    # Application.put_env :ex_admin, :repo, save
+    # Application.put_env :ex_admin_runtime, :repo, save
   end
   test "AdminLte2 build_field boolean" do
     defn = %TestExAdmin.ExAdmin.User{index_filters: []}

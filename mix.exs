@@ -4,7 +4,7 @@ defmodule ExAdmin.Mixfile do
   @version "0.8.3-dev"
 
   def project do
-    [ app: :ex_admin,
+    [ app: :ex_admin_runtime,
       version: @version,
       elixir: "~> 1.3",
       elixirc_paths: elixirc_paths(Mix.env),
@@ -64,7 +64,7 @@ defmodule ExAdmin.Mixfile do
   defp package do
     [ maintainers: ["Stephen Pallen", "Roman Smirnov"],
       licenses: ["MIT"],
-      links: %{ "Github" => "https://github.com/smpallen99/ex_admin" },
+      links: %{ "Github" => "https://github.com/tsutsu/ex_admin" },
       files: ~w(lib priv web README.md mix.exs LICENSE AdminLte-LICENSE)]
   end
 end

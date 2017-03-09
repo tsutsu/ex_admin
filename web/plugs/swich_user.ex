@@ -14,7 +14,7 @@ defmodule ExAdmin.Plug.SwitchUser do
 
   add the following to your project's `config/dev.exs` file
 
-      config :ex_admin,
+      config :ex_admin_runtime,
         logout_user: {Coherence.ControllerHelpers, :logout_user},
         login_user: {Coherence.ControllerHelpers, :login_user}
 
@@ -33,7 +33,7 @@ defmodule ExAdmin.Plug.SwitchUser do
   how to change this default:
 
       # change the field in `config/dev.exs`
-      config :ex_admin,
+      config :ex_admin_runtime,
         current_user_name: :full_name,
         current_user_name: &MyProject.User.user_name/1,
         current_user_name: {MyProject.User, :user_name}
@@ -52,16 +52,16 @@ defmodule ExAdmin.Plug.SwitchUser do
 
 
   def init(opts) do
-    unless Application.get_env(:ex_admin, :login_user) && Application.get_env(:ex_admin, :logout_user) do
+    unless Application.get_env(:ex_admin_runtime, :login_user) && Application.get_env(:ex_admin_runtime, :logout_user) do
       raise """
         :login_user and :logout_user must be configured to use ExAdmin.Plug.SwitchUser.
         Please configure these and recompile your project.
         """
     end
     %{
-      current_user_id: opts[:current_user_id] || Application.get_env(:ex_admin, :current_user_id, :id),
-      current_user_name: opts[:current_user_name] || Application.get_env(:ex_admin, :current_user_name, :name),
-      repo: Application.get_env(:ex_admin, :repo),
+      current_user_id: opts[:current_user_id] || Application.get_env(:ex_admin_runtime, :current_user_id, :id),
+      current_user_name: opts[:current_user_name] || Application.get_env(:ex_admin_runtime, :current_user_name, :name),
+      repo: Application.get_env(:ex_admin_runtime, :repo),
     }
   end
 

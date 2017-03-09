@@ -71,8 +71,8 @@ defmodule ExAdmin.Web do
     quote do
       use Phoenix.Channel
 
-      # alias Application.get_env(:ex_admin, :repo)
-      # import Application.get_env(:ex_admin, :repo)
+      # alias Application.get_env(:ex_admin_runtime, :repo)
+      # import Application.get_env(:ex_admin_runtime, :repo)
       import Ecto
       import Ecto.Query, only: [from: 1, from: 2]
 

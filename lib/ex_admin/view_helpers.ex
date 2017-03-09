@@ -5,7 +5,7 @@ defmodule ExAdmin.ViewHelpers do
   import ExAdmin.Gettext
   require Logger
 
-  @endpoint Application.get_env(:ex_admin, :endpoint)
+  @endpoint Application.get_env(:ex_admin_runtime, :endpoint)
 
   def endpoint, do: @endpoint
 

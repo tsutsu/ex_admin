@@ -8,7 +8,7 @@ use Mix.Config
 # if you want to provide default values for your application for third-
 # party users, it should be done in your mix.exs file.
 #
-# config :ex_admin,
+# config :ex_admin_runtime,
 #   route_prefix: "admin",
 #   repo: MyApp.Repo,
 #   module: MyApp,
@@ -32,7 +32,7 @@ use Mix.Config
 #   modules: [
 #     Nested.ExAdmin.Dashboard,
 #   ]
-config :ex_admin,
+config :ex_admin_runtime,
   repo: MyProject.Repo,
   module: MyProject,
   modules: [],

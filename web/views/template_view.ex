@@ -4,7 +4,7 @@ defmodule ExAdmin.TemplateView do
   # import ExAdmin.Authentication
 
   def site_title do
-    case Application.get_env(:ex_admin, :module) |> Module.split do
+    case Application.get_env(:ex_admin_runtime, :module) |> Module.split do
       [_, title | _] -> title
       [title] -> title
       _ -> "ExAdmin"
@@ -21,7 +21,7 @@ defmodule ExAdmin.TemplateView do
   end
 
   def admin_static_path(conn, path) do
-    theme = "/themes/" <> Application.get_env(:ex_admin, :theme, "active_admin")
+    theme = "/themes/" <> Application.get_env(:ex_admin_runtime, :theme, "active_admin")
     static_path(conn, "#{theme}#{path}")
   end
 end

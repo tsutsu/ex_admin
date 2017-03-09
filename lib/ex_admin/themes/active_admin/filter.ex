@@ -80,7 +80,7 @@ defmodule ExAdmin.Theme.ActiveAdmin.Filter do
     id = "q_#{owner_key}"
     name_label = field_label(name, defn)
     if assoc.__schema__(:type, :name) do
-      repo = Application.get_env :ex_admin, :repo
+      repo = Application.get_env :ex_admin_runtime, :repo
       resources = repo.all assoc
       selected_key = case q["#{owner_key}_eq"] do
         nil -> nil
@@ -119,7 +119,7 @@ defmodule ExAdmin.Theme.ActiveAdmin.Filter do
 
   def build_field({name, Ecto.UUID}, q, defn) do
     name_label = field_label(name, defn)
-    repo = Application.get_env :ex_admin, :repo
+    repo = Application.get_env :ex_admin_runtime, :repo
     ids = repo.all(defn.resource_model)
     |> Enum.map(&(Map.get(&1, name)))
 

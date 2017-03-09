@@ -81,7 +81,7 @@ defmodule ExAdmin.Filter do
 
   def associations(defn) do
     fields = fields(defn) |> Keyword.keys
-    if Application.get_env(:ex_admin, :disable_association_filters) do
+    if Application.get_env(:ex_admin_runtime, :disable_association_filters) do
       []
     else
       Enum.reduce defn.resource_model.__schema__(:associations), [], fn(assoc, acc) ->

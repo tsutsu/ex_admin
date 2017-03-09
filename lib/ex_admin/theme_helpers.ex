@@ -5,7 +5,7 @@ defmodule ExAdmin.Theme.Helpers do
     Module.concat(conn.assigns.theme, module)
   end
   def theme_module(module) do
-    Application.get_env(:ex_admin, :theme, @default_theme)
+    Application.get_env(:ex_admin_runtime, :theme, @default_theme)
     |> Module.concat(module)
   end
 

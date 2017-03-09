@@ -26,17 +26,17 @@ defmodule ExAdmin.Theme.AdminLte2.Layout do
   end
 
   def theme_selector? do
-    not is_nil(Application.get_env(:ex_admin, :theme_selector))
+    not is_nil(Application.get_env(:ex_admin_runtime, :theme_selector))
   end
   def theme_selector do
-    Application.get_env(:ex_admin, :theme_selector)
+    Application.get_env(:ex_admin_runtime, :theme_selector)
     |> Enum.with_index
     |> theme_selector
   end
 
   defp theme_selector(nil), do: ""
   defp theme_selector(options) do
-    current = Application.get_env(:ex_admin, :theme)
+    current = Application.get_env(:ex_admin_runtime, :theme)
     for {{name, theme}, inx} <- options do
       active = if current == theme, do: "active", else: ""
       content_tag :li, class: active  do

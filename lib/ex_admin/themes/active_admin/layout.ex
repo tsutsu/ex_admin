@@ -15,7 +15,7 @@ defmodule ExAdmin.Theme.ActiveAdmin.Layout do
   end
 
   def theme_selector do
-    case Application.get_env(:ex_admin, :theme_selector) do
+    case Application.get_env(:ex_admin_runtime, :theme_selector) do
       nil -> ""
       list ->
         list
@@ -26,7 +26,7 @@ defmodule ExAdmin.Theme.ActiveAdmin.Layout do
 
   defp theme_selector(nil), do: ""
   defp theme_selector(options) do
-    current = Application.get_env(:ex_admin, :theme)
+    current = Application.get_env(:ex_admin_runtime, :theme)
     content_tag :select, id: "theme-selector", style: "float: right;" do
       for {{name, theme}, inx} <- options do
         selected = if current == theme, do: [selected: "selected"], else: []

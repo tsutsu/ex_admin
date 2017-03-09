@@ -89,7 +89,7 @@ defmodule ExAdmin do
 
   Add the following to your project's `config/config.exs` file:
 
-    config :ex_admin,
+    config :ex_admin_runtime,
       head_template: {ExAdminDemo.AdminView, "admin_layout.html"}
 
   Where:
@@ -124,7 +124,7 @@ defmodule ExAdmin do
 
   Add the following to your project's `config/config.exs` file:
 
-    config :ex_admin,
+    config :ex_admin_runtime,
       footer: "&copy; Project Name"
 
   ## Adding SwitchUser Select Box
@@ -150,7 +150,7 @@ defmodule ExAdmin do
       end
 
       # config/dev.exs
-      config :ex_admin,
+      config :ex_admin_runtime,
         logout_user: {Coherence.ControllerHelpers, :logout_user},
         login_user: {Coherence.ControllerHelpers, :login_user}
 
@@ -185,7 +185,7 @@ defmodule ExAdmin do
   end
 
   @doc false
-  def registered, do: Application.get_env(:ex_admin, :modules, []) |> Enum.reverse
+  def registered, do: Application.get_env(:ex_admin_runtime, :modules, []) |> Enum.reverse
 
   @doc false
   def put_data(key, value) do
@@ -318,7 +318,7 @@ defmodule ExAdmin do
   """
 
   def theme do
-    Application.get_env(:ex_admin, :theme, @default_theme)
+    Application.get_env(:ex_admin_runtime, :theme, @default_theme)
   end
 
   def theme_name(conn) do

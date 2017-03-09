@@ -123,7 +123,7 @@ defmodule ExAdmin.Theme.AdminLte2.Index do
 
   def batch_action_form(_conn, enabled?, scopes, name, _scope_counts, fun) do
     msg = gettext "Are you sure you want to delete these %{name}? You wont be able to undo this.", name: name
-    scopes = unless Application.get_env(:ex_admin, :scopes_index_page, true), do: [], else: scopes
+    scopes = unless Application.get_env(:ex_admin_runtime, :scopes_index_page, true), do: [], else: scopes
     if enabled? or scopes != [] do
       form "#collection_selection", action: "/admin/#{name}/batch_action", method: :post, "accept-charset": "UTF-8" do
         div style: "margin:0;padding:0;display:inline" do

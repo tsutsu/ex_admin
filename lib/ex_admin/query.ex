@@ -36,7 +36,7 @@ defmodule ExAdmin.Query do
   @doc false
   def count([]), do: 0
   def count(resources) when is_list(resources) do
-    repo = Application.get_env :ex_admin, :repo
+    repo = Application.get_env :ex_admin_runtime, :repo
     hd(resources).__struct__ |> select([r], count r.id) |> repo.one!
   end
 

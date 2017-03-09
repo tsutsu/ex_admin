@@ -1,11 +1,11 @@
 use Mix.Config
 
-config :ex_admin, TestExAdmin.Endpoint,
+config :ex_admin_runtime, TestExAdmin.Endpoint,
   http: [port: 4001],
   secret_key_base: "HL0pikQMxNSA58DV3mf26O/eh1e4vaJDmx1qLgqBcnS14gbKu9Xn3x114D+mHYcX",
   server: true
 
-config :ex_admin, TestExAdmin.Repo,
+config :ex_admin_runtime, TestExAdmin.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
@@ -13,7 +13,7 @@ config :ex_admin, TestExAdmin.Repo,
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 
-config :ex_admin,
+config :ex_admin_runtime,
   repo: TestExAdmin.Repo,
   module: TestExAdmin,
   modules: [

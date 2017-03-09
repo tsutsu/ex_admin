@@ -5,7 +5,7 @@ defmodule ExAdmin.Utils do
   require Logger
   import Ecto.DateTime.Utils, only: [zero_pad: 2]
   import ExAdmin.Gettext
-  @module Application.get_env(:ex_admin, :module)
+  @module Application.get_env(:ex_admin_runtime, :module)
 
   if @module do
     @endpoint Module.concat([@module, "Endpoint"])
@@ -18,14 +18,14 @@ defmodule ExAdmin.Utils do
   else
     # run time version of endpoint and router
     Logger.warn """
-    ExAdmin requires recompiling after adding :ex_admin configuration in your config/config.exs file.
+    ExAdmin requires recompiling after adding :ex_admin_runtime configuration in your config/config.exs file.
     After running 'mix admin.install' and updating your config.exs file, please
     run 'touch deps/ex_admin/mix.exs && mix deps.compile ex_admin'.
     """
     @doc false
-    def endpoint, do: Module.concat([Application.get_env(:ex_admin, :module), "Endpoint"])
+    def endpoint, do: Module.concat([Application.get_env(:ex_admin_runtime, :module), "Endpoint"])
     @doc false
-    def router, do: Module.concat([Application.get_env(:ex_admin, :module), "Router", "Helpers"])
+    def router, do: Module.concat([Application.get_env(:ex_admin_runtime, :module), "Router", "Helpers"])
   end
 
   @doc false
@@ -340,7 +340,7 @@ defmodule ExAdmin.Utils do
 
   @doc false
   def authorized_action?(conn, action, resource_model) when is_atom(resource_model) do
-    # fun = Application.get_env(:ex_admin, :authorize)
+    # fun = Application.get_env(:ex_admin_runtime, :authorize)
     # if fun, do: fun.(conn, action, resource_model), else: true
     authorized_action? conn, action, resource_model.__struct__
   end

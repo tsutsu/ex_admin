@@ -75,5 +75,5 @@ defmodule ExAdmin.AdminAssociationController do
     |> Ecto.Changeset.cast_assoc(assoc_name)
   end
 
-  defp repo, do: Application.get_env(:ex_admin, :repo)
+  defp repo, do: Application.get_env(:ex_admin_runtime, :repo)
 end

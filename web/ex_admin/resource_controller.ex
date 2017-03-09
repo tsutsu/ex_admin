@@ -178,7 +178,7 @@ defmodule ExAdmin.ResourceController do
       defp handle_plugs(%{halted: true} = conn, _, _), do: conn
       defp handle_plugs(conn, :nested, _defn), do: conn
       defp handle_plugs(conn, _action, defn) do
-        case Application.get_env(:ex_admin, :plug, []) do
+        case Application.get_env(:ex_admin_runtime, :plug, []) do
           list when is_list(list) -> list
           item -> [{item, []}]
         end
@@ -195,7 +195,7 @@ defmodule ExAdmin.ResourceController do
       end
       defp authorized?(conn), do: conn
 
-      defp repo, do: Application.get_env(:ex_admin, :repo)
+      defp repo, do: Application.get_env(:ex_admin_runtime, :repo)
     end
   end
 end

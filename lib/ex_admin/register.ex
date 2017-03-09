@@ -541,7 +541,7 @@ defmodule ExAdmin.Register do
         list -> Enum.reverse list
       end
 
-      defstruct controller: Module.concat(Application.get_env(:ex_admin, :project), AdminController),
+      defstruct controller: Module.concat(Application.get_env(:ex_admin_runtime, :project), AdminController),
                 controller_methods: Module.get_attribute(__MODULE__, :controller_methods),
                 type: :page,
                 page_name: page_name,
@@ -1033,7 +1033,7 @@ defmodule ExAdmin.Register do
   end
 
   defp check_preload(field, key) do
-    if Application.get_env :ex_admin, key, true do
+    if Application.get_env :ex_admin_runtime, key, true do
       field
     else
       nil

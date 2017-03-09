@@ -483,7 +483,7 @@ defmodule ExAdmin.Form do
       field ->
         case resource.__struct__.__schema__(:association, field) do
           %Ecto.Association.BelongsTo{cardinality: :one, queryable: assoc} ->
-            repo = Application.get_env(:ex_admin, :repo)
+            repo = Application.get_env(:ex_admin_runtime, :repo)
             collection = case repo.aggregate(assoc, :count, :id) do
               n when n < 1000 -> repo.all assoc
               _               -> Enum.filter([Map.fetch!(resource, field)], &(&1))
@@ -576,7 +576,7 @@ defmodule ExAdmin.Form do
   end
 
   defp field_type(resource, field_name) do
-    field_type_matching = Application.get_env(:ex_admin, :field_type_matching) || %{}
+    field_type_matching = Application.get_env(:ex_admin_runtime, :field_type_matching) || %{}
     original_ft = resource.__struct__.__schema__(:type, field_name)
     Map.get(field_type_matching, original_ft, original_ft)
   end

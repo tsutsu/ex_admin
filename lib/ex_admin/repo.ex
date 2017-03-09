@@ -7,7 +7,7 @@ defmodule ExAdmin.Repo do
   import Ecto.Query
   require IEx
 
-  def repo, do: Application.get_env(:ex_admin, :repo)
+  def repo, do: Application.get_env(:ex_admin_runtime, :repo)
 
   defp stringify_key(key) when is_atom(key), do: Atom.to_string(key)
   defp stringify_key(key) when is_binary(key), do: key

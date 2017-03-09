@@ -76,7 +76,7 @@ defmodule ExAdmin.AdminLte2.LayoutView do
     markup safe: true do
       current_scope = ExAdmin.Query.get_scope scopes, conn.params["scope"]
       # li ".header SCOPES"
-      if Application.get_env(:ex_admin, :nest_scopes, false) do
+      if Application.get_env(:ex_admin_runtime, :nest_scopes, false) do
         li ".treeview" do
           a href: "#" do
             i ".fa.fa-filter"

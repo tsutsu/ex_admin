@@ -118,7 +118,7 @@ defmodule ExAdmin.Theme.AdminLte2.Filter do
   end
 
   def build_field({_, %Ecto.Association.BelongsTo{related: assoc}} = field, q, defn) do
-    repo = Application.get_env :ex_admin, :repo
+    repo = Application.get_env :ex_admin_runtime, :repo
     case repo.aggregate(assoc, :count, :id) do
       n when n < 1000 -> build_basic_select(field, q, defn, repo)
       _               -> build_ajax_select(field, q, defn, repo)
@@ -142,7 +142,7 @@ defmodule ExAdmin.Theme.AdminLte2.Filter do
 
   def build_field({name, Ecto.UUID}, q, defn) do
     name_label = field_label(name, defn)
-    repo = Application.get_env :ex_admin, :repo
+    repo = Application.get_env :ex_admin_runtime, :repo
     ids = repo.all(defn.resource_model)
     |> Enum.map(&(Map.get(&1, name)))
 

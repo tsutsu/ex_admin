@@ -11,9 +11,9 @@ defmodule ExAdmin.LayoutView do
   end
 
   def site_title do
-    case Application.get_env(:ex_admin, :title) do
+    case Application.get_env(:ex_admin_runtime, :title) do
       nil ->
-        case Application.get_env(:ex_admin, :module) |> Module.split do
+        case Application.get_env(:ex_admin_runtime, :module) |> Module.split do
           [_, title | _] -> title
           [title] -> title
           _ -> "ExAdmin"
@@ -24,13 +24,13 @@ defmodule ExAdmin.LayoutView do
 
   def logo_mini do
     default = "Ex<b>A</b>"
-    Application.get_env(:ex_admin, :logo_mini, default)
+    Application.get_env(:ex_admin_runtime, :logo_mini, default)
     |> Phoenix.HTML.raw
   end
 
   def logo_full do
     default = "Ex<b>Admin</b>"
-    Application.get_env(:ex_admin, :logo_full, default)
+    Application.get_env(:ex_admin_runtime, :logo_full, default)
     |> Phoenix.HTML.raw
   end
 
@@ -57,14 +57,14 @@ defmodule ExAdmin.LayoutView do
   end
 
   def theme_selector do
-    Application.get_env(:ex_admin, :theme_selector)
+    Application.get_env(:ex_admin_runtime, :theme_selector)
     |> Enum.with_index
     |> theme_selector
   end
 
   defp theme_selector(nil), do: ""
   defp theme_selector(options) do
-    current = Application.get_env(:ex_admin, :theme)
+    current = Application.get_env(:ex_admin_runtime, :theme)
     content_tag :select, id: "theme-selector" do
       for {{name, theme}, inx} <- options do
         selected = if current == theme, do: [selected: "selected"], else: []
