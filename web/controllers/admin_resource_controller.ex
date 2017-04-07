@@ -6,8 +6,11 @@ defmodule ExAdmin.AdminResourceController do
   import ExAdmin.Index
 
   def index(conn, defn, params) do
-    model = defn.__struct__
+    index(get_format(conn), conn, defn, params)
+  end
 
+  def index("html", conn, defn, params) do
+    model = defn.__struct__
     page = case conn.assigns[:page] do
       nil ->
         id = params |> Map.to_list
@@ -31,6 +34,19 @@ defmodule ExAdmin.AdminResourceController do
     assign(conn, :scope_counts, scope_counts)
     |> render("admin.html", html: contents, page: page,
       filters: (if false in defn.index_filters, do: false, else: defn.index_filters))
+  end
+
+  def index("json", conn, defn, params) do
+    model = defn.__struct__
+
+    page = model.build_admin_search_query(conn.params["keywords"])
+    |> repo().paginate(params)
+
+    results = page.entries
+    |> Enum.map(fn(r) -> %{id: ExAdmin.Schema.get_id(r), pretty_name: ExAdmin.Helpers.display_name(r)} end)
+
+    resp = %{results: results, more: page.page_number < page.total_pages}
+    conn |> json(resp)
   end
 
   def show(conn, defn, params) do
