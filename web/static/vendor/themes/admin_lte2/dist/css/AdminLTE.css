@@ -4010,7 +4010,7 @@ table.text-center th {
 .select2-selection .select2-selection--single {
   border: 1px solid #d2d6de;
   border-radius: 0;
-  padding: 6px 12px;
+  padding: 6px 0px;
   height: 34px;
 }
 .select2-container--default.select2-container--open {
@@ -4033,7 +4033,6 @@ table.text-center th {
   padding-left: 0;
   padding-right: 0;
   height: auto;
-  margin-top: -4px;
 }
 .select2-container[dir="rtl"] .select2-selection--single .select2-selection__rendered {
   padding-right: 6px;
