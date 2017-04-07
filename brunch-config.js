@@ -50,7 +50,7 @@ exports.config = {
       joinTo: { "css/admin_lte2.css": [
         "web/static/vendor/themes/admin_lte2/css/ex_admin.css",
         "web/static/vendor/themes/admin_lte2/bootstrap/css/bootstrap.min.css",
-        "web/static/vendor/themes/admin_lte2/dist/css/AdminLTE.min.css",
+        "web/static/vendor/themes/admin_lte2/dist/css/AdminLTE.css",
         "web/static/vendor/themes/admin_lte2/dist/css/skins/all-skins.min.css",
         "web/static/vendor/themes/admin_lte2/css/font-awesome.min.css",
         "web/static/vendor/themes/admin_lte2/css/ionicons.min.css",
