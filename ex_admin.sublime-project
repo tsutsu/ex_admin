@@ -1,0 +1,36 @@
+{
+  "folders": [
+    {
+      "path": ".",
+
+      "file_exclude_patterns": [
+        "*.sublime-project",
+        "*.sublime-workspace",
+				"*.min.css",
+				"*.min.js",
+			  "*.css.map",
+			  "*.js.map"
+      ],
+
+      "folder_exclude_patterns": [
+        "node_modules",
+        "bower_components",
+
+        "_build",
+        "deps",
+        "_rel",
+
+				"priv/static"
+      ]
+    }
+  ],
+
+  "SublimeLinter": {
+    "linters": {
+      "annotations": {
+        "warnings": ["TODO", "SMELL", "NOTE", "REFACTOR", "PERF", "OPTIMIZE"],
+        "errors": ["HACK", "BUG"]
+      }
+    }
+  }
+}

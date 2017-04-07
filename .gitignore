@@ -8,6 +8,8 @@ erl_crash.dump
 *.swn
 *.swm
 *~
+*.sublime-workspace
+
 # swap
 [._]*.s[a-w][a-z]
 [._]s[a-w][a-z]
