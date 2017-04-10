@@ -629,7 +629,7 @@ defmodule ExAdmin.Form do
           {value, name} -> {value, name}
           other -> {other, other}
         end
-        selected = if Map.get(resource, field_name) == value,
+        selected = if to_string(Map.get(resource, field_name)) == value,
           do: [selected: :selected], else: []
         option(name, [value: value] ++ selected)
       end
