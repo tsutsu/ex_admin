@@ -481,12 +481,23 @@ defmodule ExAdmin.Form do
       {:maps, _field} ->
         %{type: :input, resource: resource, name: name, opts: %{maps: true}}
       field ->
-        case resource.__struct__.__schema__(:association, field) do
-          %Ecto.Association.BelongsTo{cardinality: :one, queryable: assoc} ->
-            collection = Application.get_env(:ex_admin, :repo).all assoc
-            %{type: :input, resource: resource, name: field, opts: %{collection: collection}}
-          _ ->
-            nil
+        assoc_queryable = case resource.__struct__.__schema__(:association, field) do
+          %Ecto.Association.Has{cardinality: :one, queryable: assoc} -> assoc
+          %Ecto.Association.BelongsTo{cardinality: :one, queryable: assoc} -> assoc
+          _ -> nil
+        end
+
+        if assoc_queryable do
+          repo = Application.get_env(:ex_admin, :repo)
+
+          collection = case repo.aggregate(assoc_queryable, :count, :id) do
+            n when n < 1000 -> repo.all(assoc_queryable)
+            _               -> Enum.filter([Map.fetch!(resource, field)], &(&1))
+          end
+
+          %{type: :input, resource: resource, name: field, opts: %{collection: collection}}
+        else
+          %{type: :input, resource: resource, name: field, opts: %{}}
         end
     end
   end
