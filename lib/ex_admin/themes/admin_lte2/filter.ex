@@ -118,32 +118,11 @@ defmodule ExAdmin.Theme.AdminLte2.Filter do
     end
   end
 
-  def build_field({name, %Ecto.Association.BelongsTo{related: assoc, owner_key: owner_key}}, q, defn) do
-    id = "q_#{owner_key}"
-    name_label = field_label(name, defn)
+  def build_field({_, %Ecto.Association.BelongsTo{related: assoc}} = field, q, defn) do
     repo = Application.get_env :ex_admin, :repo
-    name_field = ExAdmin.Helpers.get_name_field(assoc)
-    resources = if is_nil(name_field) do
-      repo.all(assoc)
-    else
-      repo.all(from a in assoc, order_by: [asc: ^name_field])
-    end
-    selected_key = case q["#{owner_key}_eq"] do
-      nil -> nil
-      val -> val
-    end
-    div ".form-group" do
-      title = name_label |> String.replace(" Id", "")
-      label ".label #{title}", for: "q_#{owner_key}"
-      select "##{id}.form-control", [name: "q[#{owner_key}_eq]"] do
-        option "Any", value: ""
-        for r <- resources do
-          id = ExAdmin.Schema.get_id(r)
-          name = ExAdmin.Helpers.display_name(r)
-          selected = if "#{id}" == selected_key, do: [selected: :selected], else: []
-          option name, [{:value, "#{id}"} | selected]
-        end
-      end
+    case repo.aggregate(assoc, :count, :id) do
+      n when n < 1000 -> build_basic_select(field, q, defn, repo)
+      _               -> build_ajax_select(field, q, defn, repo)
     end
   end
 
@@ -188,6 +167,57 @@ defmodule ExAdmin.Theme.AdminLte2.Filter do
   def build_field({name, type}, _q, _) do
     Logger.debug "ExAdmin.Filter: unknown type: #{inspect type} for field: #{inspect name}"
     nil
+  end
+
+
+  def build_basic_select({name, %Ecto.Association.BelongsTo{related: assoc, owner_key: owner_key}}, q, defn, repo) do
+    id = "q_#{owner_key}"
+    name_label = field_label(name, defn)
+    name_field = ExAdmin.Helpers.get_name_field(assoc)
+    resources = if is_nil(name_field) do
+      repo.all(assoc)
+    else
+      repo.all(from a in assoc, order_by: [asc: ^name_field])
+    end
+    selected_key = case q["#{owner_key}_eq"] do
+      nil -> nil
+      val -> val
+    end
+    div ".form-group" do
+      title = name_label |> String.replace(" Id", "")
+      label ".label #{title}", for: "q_#{owner_key}"
+      select "##{id}.form-control", [name: "q[#{owner_key}_eq]"] do
+        option "Any", value: ""
+        for r <- resources do
+          id = ExAdmin.Schema.get_id(r)
+          name = ExAdmin.Helpers.display_name(r)
+          selected = if "#{id}" == selected_key, do: [selected: :selected], else: []
+          option name, [{:value, "#{id}"} | selected]
+        end
+      end
+    end
+  end
+
+  def build_ajax_select({name, %Ecto.Association.BelongsTo{related: assoc, owner_key: owner_key}}, q, defn, repo) do
+    selected_key = q["#{owner_key}_eq"]
+    existing_model = if selected_key, do: repo.get!(assoc, selected_key)
+    resources = Enum.filter([existing_model], &(&1))
+
+    id = "q_#{owner_key}"
+    name_label = field_label(name, defn)
+    div ".form-group" do
+      title = name_label |> String.replace(" Id", "")
+      label ".label #{title}", for: "q_#{owner_key}"
+      select "##{id}.form-control", [name: "q[#{owner_key}_eq]"] do
+        option "Any", value: ""
+        for r <- resources do
+          id = ExAdmin.Schema.get_id(r)
+          name = ExAdmin.Helpers.display_name(r)
+          selected = if "#{id}" == selected_key, do: [selected: :selected], else: []
+          option name, [{:value, "#{id}"} | selected]
+        end
+      end
+    end
   end
 
 end
